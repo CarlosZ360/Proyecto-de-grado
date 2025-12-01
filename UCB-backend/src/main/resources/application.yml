@@ -1,0 +1,22 @@
+# Configuramos el puerto de la aplicacion
+server:
+  port: 8080
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  # Nombre del servicio
+  application:
+    name: PwnCrack
+  # Configuraci�n de la base de datos
+  datasource:
+    type: org.postgresql.jdbc2.optional.SimpleDataSource
+    username: ${USERNAME_DB:postgres}
+    password: ${PASSWORD_DB:postgres}
+    url: ${URL_DB:jdbc:postgresql://localhost:5432/postgres}
+  jpa:
+    hibernate:
+      ddl-auto: update
+      # Para crear una entidad si es que no existe en la bd

@@ -1,0 +1,52 @@
+###
+##Crear un empleado
+POST http://localhost:8080/api/employee
+Content-Type: application/json
+
+{
+  "name" : "Kevin",
+  "lastName" : "Luque",
+  "phone" : "123456789",
+  "email" : "kevin@gmail.com",
+  "role" : "CONSULTOR",
+  "password" : "123456"
+}
+
+###
+##Obtener un empleado por id
+GET http://localhost:8080/api/employee/2
+
+###
+##Actualizar un empleado
+PUT http://localhost:8080/api/employee/5
+Content-Type: application/json
+
+{
+  "name" : "TEST",
+  "lastName" : "TEST",
+  "phone" : "123456789",
+  "email" : "Test",
+  "role" : "CONSULTOR",
+  "password" : "123456"
+}
+
+###
+##Eliminar un empleado
+DELETE http://localhost:8080/api/employee/3
+
+###
+##Obtener todos los empleados-activos
+GET http://localhost:8080/api/employee
+
+###
+##Obtener todos los empleados con rol CONSULTOR
+GET http://localhost:8080/api/employee/consultor
+
+###
+##Actualizar contraseña de un empleado mandar correo y password
+PUT http://localhost:8080/api/employee/password?email=carlos@gmail.com&password=1234566
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEzNTUyOTAyLCJpc3MiOiJQV05DUkFDSyIsInJvbCI6IkFETUlOSVNUUkFET1IifQ.2fesbegHbNg5AYmDeYzWyMasxzaUwv98ZWgNukcT45o
+
+
+

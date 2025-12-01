@@ -1,0 +1,9 @@
+### Autenticacion correcta
+POST http://localhost:8080/api/auth/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "natalia@gmail.com",
+  "password": "123456"
+}

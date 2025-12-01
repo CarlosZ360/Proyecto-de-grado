@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres
+    mem_limit: 512m
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: postgres
+
+    volumes:
+      # - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - C:\Users\MSI\pgdata:/var/lib/postgresql/data
+    networks:
+      - pwncrack-network
+  pwncrack:
+    image: pwncrack:0.0.1
+    restart: always
+    mem_limit: 512m
+    ports:
+      - "8080:8080"
+    environment:
+      URL_DB: ${POSTGRES_URL}
+      USER_NAME: ${POSTGRES_USER}
+      PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      - postgres
+    networks:
+      - pwncrack-network
+  angular:
+    image: pwncrack-front4
+    ports:
+      - "4200:80"
+networks:
+  pwncrack-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.24.0.0/16
+          gateway: 172.24.0.1

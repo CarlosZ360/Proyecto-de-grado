@@ -1,0 +1,31 @@
+###
+##Crear una compañia
+POST http://localhost:8080/api/company
+Content-Type: application/json
+
+{
+  "name": "Banco Mercantil Santa Cruz",
+  "abrevation": "BMSC"
+}
+###
+##Obter una compañia por id
+GET http://localhost:8080/api/company/2
+
+###
+##Actualizar una compañia por su id
+PUT http://localhost:8080/api/company/1
+Content-Type: application/json
+
+{
+  "name": "Banco Mercantil",
+  "abrevation": "BMSC"
+}
+
+###
+##Eliminar una compañia por su id - eliminación logica
+DELETE http://localhost:8080/api/company/2
+
+###
+##Obtener todas las compañias
+GET http://localhost:8080/api/companies
+

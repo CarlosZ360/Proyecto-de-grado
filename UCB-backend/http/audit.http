@@ -1,0 +1,36 @@
+###
+##Crear una nueva auditoria
+POST http://localhost:8080/api/audit
+Content-Type: application/json
+
+{
+  "name": "Auditoria test3",
+  "date": "2023-06-01",
+  "clientId": 1,
+  "employeeIds": [3,2]
+}
+
+###
+##Obtener una auditoria por id
+GET http://localhost:8080/api/audit/36
+###
+##Obtener auditorias por id de cliente
+GET http://localhost:8080/api/audit/client/1
+
+###
+##Eliminar una auditoria por id
+DELETE http://localhost:8080/api/audit/18
+
+###
+##Actualizar una auditoria
+PUT http://localhost:8080/api/audit/36
+Content-Type: application/json
+
+{
+  "name": "Auditoria test3",
+  "date": "2024-04-18",
+  "clientId": 1,
+  "employeeIds": [2,3]
+}
+
+

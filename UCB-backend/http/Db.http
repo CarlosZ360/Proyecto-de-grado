@@ -1,0 +1,24 @@
+###
+## Obtener backup de la base de datos
+GET http://localhost:8080/api/backup
+
+###
+## Obtener dashboard
+GET http://localhost:8080/api/dashboard
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzE2NTkzMTY3LCJpc3MiOiJQV05DUkFDSyIsInJvbCI6IkFETUlOSVNUUkFET1IifQ.BiF2f1kxNlrTq1fZh5dGibW95pYrPJ43q_MHwlLj7-E
+
+###
+## Metodo para actualizar opciones de guardado de dashboard
+PUT http://localhost:8080/api/updateDashboard
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzE2NTkzMTY3LCJpc3MiOiJQV05DUkFDSyIsInJvbCI6IkFETUlOSVNUUkFET1IifQ.BiF2f1kxNlrTq1fZh5dGibW95pYrPJ43q_MHwlLj7-E
+
+{
+    "five": true,
+    "thirteen": false,
+    "twenty": true,
+    "state": false
+}

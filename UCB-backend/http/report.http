@@ -1,0 +1,23 @@
+###
+## Obtener reporte por id
+GET http://localhost:8080/api/report/5
+
+###
+## Obtener reportes por id de auditoria
+GET http://localhost:8080/api/report/audit/1
+
+###
+## Obtener reporte final por id
+GET http://localhost:8080/api/report/final/9
+
+###
+## Obtener reportes finales por id de reporte
+GET http://localhost:8080/api/report/final/report/46
+
+####
+## Obtener todos los hash de la base de datos
+GET http://localhost:8080/api/hashes
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5IiwiZXhwIjoxNzE1MDM0NzQ0LCJpc3MiOiJQV05DUkFDSyIsInJvbCI6IkFETUlOSVNUUkFET1IifQ.Lz4AMfQL7swK3Wdb-8GCEXAE39JNqiiX4rlzyQ3sI-w
+

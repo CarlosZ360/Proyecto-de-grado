@@ -1,0 +1,58 @@
+###
+##Crear un cliente
+POST http://localhost:8080/api/client
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzEzNDY2Mjg2LCJpc3MiOiJQV05DUkFDSyIsInJvbCI6IkFETUlOSVNUUkFET1IifQ.RprGx9JPP0cmnmdducElMTnNXmdin9TulwLNPltbdRM
+
+{
+  "name" : "test",
+  "lastName" : "test",
+  "phone" : "68088088",
+  "email" : "seguridad1@gmail.com",
+  "password" : "123456",
+  "position": "CLIENTE",
+  "companyId" :1
+}
+
+
+
+###
+##Obtener un cliente por su id
+GET http://localhost:8080/api/client/6
+
+###
+##Actualizar un cliente por su id
+PUT http://localhost:8080/api/client/1
+Content-Type: application/json
+
+{
+  "name" : "Luisa",
+  "lastName" : "Sanchez",
+  "phone" : "123456789",
+  "email" : "luis@gmail.com",
+  "password" : "hola",
+  "position": "ADMINISTRADOR",
+  "companyId" : 1
+}
+
+###
+##Eliminar un cliente por su id
+DELETE http://localhost:8080/api/client/2
+
+####
+##Lista de clientes activo
+GET http://localhost:8080/api/clients
+
+###
+##Actualizar contraseña de un empleado mandar correo y password
+PUT http://localhost:8080/api/client/password?email=andre@gmail.com&password=tusa
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEzNTgyMDM4LCJpc3MiOiJQV05DUkFDSyIsInJvbCI6IkFETUlOSVNUUkFET1IifQ.ckgbDE5vN2BhUOIIf9qp0taXAEnke3vS0GK2ixJFs-I
+
+###
+## Obtener estadisticas de un cliente
+GET http://localhost:8080/api/client/stats/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzE2ODY1MDY3LCJpc3MiOiJQV05DUkFDSyIsInJvbCI6IkFETUlOSVNUUkFET1IifQ.5I6xUYr7ugEHhQDv99IraY2Outg7oEjvZtp-V2dzEdU
+
