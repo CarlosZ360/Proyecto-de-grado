@@ -1,0 +1,279 @@
+/*Background*/
+.background {
+    background-color: #88A5C9;
+    font-family: 'Montserrat', sans-serif;
+    height: 89vh;
+
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.hash{
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 5px 50px;
+    box-shadow: 0px 0px 10px 0px #000000;
+    height: auto;
+    width: 20%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+  
+  /* Estilo para centrar el cuadro de diálogo */
+  .custom-confirm-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 1% 2%;
+    border-radius: 4px;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    height: 30%;
+    width: 30%;
+
+  }
+  .column{
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  /* Estilo para botones */
+  .custom-confirm-dialog button {
+    margin-right: 10px;
+  }
+  .dialog-actions{
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .div-trash {
+    height: 50px;
+    width: 50px;
+    border: none;
+    text-align: center;
+    z-index: 1;
+    overflow: hidden;
+    text-transform: capitalize;
+    position: relative;
+    color: #FF0000;
+    background-color: #FFDBDB;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .trash-1{
+    width: 30px;
+  }
+  h5{
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  h6{
+    font-size: 18px;
+    font-weight: 600;
+    color: #757575;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+  p{
+    font-size: 14px;
+    font-weight: 200;
+    color: #757575;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 10px;
+  }
+  hr{
+    margin-top: 3px;
+  }
+  /*Estilos botones popup*/
+  /* Estilo para el fondo oscuro */
+ .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+  }
+  .Aceptar{
+    border-radius: 10px;
+    color: white;
+    background-color: #88A5C9;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    width: 25%;
+    font-size: 20px;
+    margin: 0;
+
+  }
+  .Cancelar{
+    border-radius: 10px;
+    color: white;
+    background-color: #21a507;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    width: 25%;
+    font-size: 20px;
+    margin: 0;
+  }
+  .Password{
+    border-radius: 10px;
+    color: white;
+    background-color: #489CE9;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    width: 40%;
+    font-size: 20px;
+    margin: 0;
+  }
+  a{
+    text-decoration: none;
+  }
+  .input-container i{
+    margin-top: 2px;
+    size: 22px;
+  }
+/*Inputs-transiciones*/
+.input-container {
+    position: relative;
+    margin-bottom: 10px;
+    border: 2px solid #CBCBCB;
+    border-radius: 10px;
+    margin-top: 5px;
+    padding-left: 7px;
+  }
+  
+  .input-container input {
+    padding-left: 40px;
+    border: none;
+    outline: none;
+    width: 300px;
+    font-size: 18px; 
+    color:#000000;
+    width: 80%;
+  }
+  
+  .input-container .icon {
+    position: absolute;
+    left: 15px;
+    top: 40%;
+    transform: translateY(-50%);
+    color: #ccc;
+    font-size: 18px; 
+    transition: background-color 0.3s ease;
+  }
+
+  .input-container:focus-within {
+    border-color: #16428B; /* Cambiar color de borde cuando hay foco en algún elemento hijo */
+  }
+  
+  .input-container input:focus + .icon {
+    color: #16428B;
+  }
+/*Mensaje de error*/
+.error-message {
+    color: #ff0000;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 6px 0 0 0;
+    display: none;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+}
+.error-message.show {
+    display: block;
+}
+/*Popup de confirmación/error*/
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.199);
+  backdrop-filter: blur(5px);
+  z-index: 100;
+}
+.success {
+  background-color: white;
+  width: 400px;
+  height: 200px;
+  border-radius: 10px;
+}
+.confirmation-content {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.confirmation-content i {
+  font-size: 60px;
+  margin-top: 10px;
+}
+.confirmation-content p {
+  font-size: 20px;
+  font-weight: 500;
+  color: #003531;
+}
+.confirmation-content button {
+  width: 100px;
+  margin-top: 10px;
+}
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 24px; 
+}
+
+button span {
+  font-weight: bold;
+  height: 40px;
+}
+
+button[disabled] {
+  cursor: not-allowed;
+  color: #bdc3c7;
+}
+/* Estilos opcionales para mejorar la apariencia */
+label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 5px;
+  }
+/* Estilos opcionales para mejorar la apariencia */
+label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 5px;
+    width: 15px; /* Ancho deseado */
+    height: 15px; /* Alto deseado */
+  }

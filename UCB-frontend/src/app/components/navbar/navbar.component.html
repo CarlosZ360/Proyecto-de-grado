@@ -1,0 +1,90 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css" integrity="tu-clave-de-api" crossorigin="anonymous">
+<nav *ngIf="admin" class="navbar">
+    <div class="center">
+        <img class="logo" src="../../../assets/icons/Logo-PwnCrack.jpg" width="180px" />
+    </div>
+    <div class="nav-links">
+        <a class="nav-link option" routerLink="/customers">
+            <i class="fa-thin fa-users"></i>Clientes
+        </a>
+        <a class="nav-link option" routerLink="/dashboard">
+            <i class="fa-light fa-file"></i> DashBoard
+        </a>
+        <a class="nav-link option" (click)="toggleDropdown()">
+            <i class="fa-solid fa-database"></i>Datos
+            <div *ngIf="dropdownOpen" class="dropdown">
+                <a routerLink="/clients">Clientes</a>
+                <a routerLink="/collaborators">Empleados</a>
+                <a routerLink="/company">Empresas</a>
+                <a routerLink="/hash">Hash</a>
+            </div>
+            <i class="fa-solid fa-caret-down" style="margin-left: 10px;"></i>
+        </a>
+    </div>
+    <div class="logout">
+        <a class="nav-link option" (click)="toggleDropdown2()">
+            <i class="fa-solid fa-circle-user"></i>{{user.name}} {{user.lastName}}
+            <i class="fa-solid fa-caret-down" style="margin-left: 10px;"></i>
+            <div *ngIf="dropdownOpen2" class="dropdown2">
+                <a routerLink="/my-profile">Mi perfi</a>
+                <a (click)="popup()">Cerrar sesión</a>
+            </div>
+        </a>
+    </div>
+</nav>
+
+<nav *ngIf="consultor" class="navbar">
+    <div class="center">
+        <img class="logo" src="../../../assets/icons/Logo-PwnCrack.jpg" width="180px" />
+    </div>
+    <div class="nav-links">
+        <a class="nav-link option" routerLink="/customers">
+            <i class="fa-thin fa-users"></i>Clientes
+        </a>
+        <a class="nav-link option" routerLink="/customers">
+            <i class="fa-light fa-file"></i>Reportes
+        </a>
+    </div>
+    <div class="logout">
+        <a class="nav-link option" (click)="toggleDropdown2()">
+            <i class="fa-solid fa-circle-user"></i>{{user.name}} {{user.lastName}}
+            <i class="fa-solid fa-caret-down" style="margin-left: 10px;"></i>
+            <div *ngIf="dropdownOpen2" class="dropdown2">
+                <a routerLink="/my-profile">Mi perfi</a>
+                <a (click)="popup()">Cerrar sesión</a>
+            </div>
+        </a>
+    </div>
+</nav>
+
+<nav *ngIf="client" class="navbar">
+    <div class="center">
+        <img class="logo" src="../../../assets/icons/Logo-PwnCrack.jpg" width="180px" />
+    </div>
+    <div class="logout">
+        <a class="nav-link option" (click)="toggleDropdown2()">
+            <i class="fa-solid fa-circle-user"></i>{{user.name}} {{user.lastName}}
+            <i class="fa-solid fa-caret-down" style="margin-left: 10px;"></i>
+            <div *ngIf="dropdownOpen2" class="dropdown2">
+                <a routerLink="/my-profile">Mi perfi</a>
+                <a (click)="popup()">Cerrar sesión</a>
+            </div>
+        </a>
+    </div>
+</nav>
+
+<!-- Popup -->
+<div class="overlay" *ngIf="isDialogVisible"></div> <!-- Fondo oscuro -->
+<div class="custom-confirm-dialog" *ngIf="isDialogVisible">
+    <div class="dialog-content">
+        <h5>Cerrar sesión</h5>
+        <hr>
+            <div>
+                <h6>¿Estás seguro de cerrar tu sesión actual? </h6>
+            </div>           
+    </div>
+    <div class="dialog-actions">
+        <button (click)="closeSesion()" class="Aceptar">Aceptar</button>
+        <button (click)="cancel()" class="Cancelar">Cancelar</button>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<app-navbar></app-navbar>
+<div class="background center">
+    <div class="customers">
+        <div class="options-list">
+            <div class="paginacion">
+                <div class="paginator-container">
+                    <div class="filter">
+                        <div class="page-info">
+                            <h3>Registros por página</h3>
+                        </div>
+                        <select [(ngModel)]="inputValue2" name="size" (ngModelChange)="onInputChange()">
+                            <option value="5" selected hidden>5</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                        </select>   
+                        <div class="page-info">
+                            <h3>{{ inicio }} - {{ fin }} de {{total}}</h3>
+                        </div>
+                        <button (click)="onPageChange(paginaActual - 1)" [disabled]="paginaActual === 1">
+                            <span>&lt;</span>
+                        </button>
+                        <button (click)="onPageChange(paginaActual + 1)" [disabled]="paginaActual * inputValue2 >= users.length">
+                            <span>&gt;</span>
+                        </button>
+                    </div>
+                    <!-- <div class="center">
+                        <i class="fa-solid fa-search"></i>
+                        <input [(ngModel)]="searchText" (input)="onInputChange()" type="text" placeholder="Nombre del cliente">
+                    </div> -->
+                </div>
+            </div>
+            <h3>Nombre cliente</h3>
+            <div *ngFor="let user of usersFilter">
+                <div class="user-list">
+                    <div class="user">
+                        <h4>{{user.name}}</h4>
+                    </div>
+                    <button class="button" (click)="redirectCustomer(user.companyId)">Historico</button>
+                    <button class="button" (click)="statsCustomer(user.companyId)">Estadistica</button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <h3>{{total}} Clientes</h3> 
+        </div>
+    </div>
+</div>

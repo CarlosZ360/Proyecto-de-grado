@@ -1,0 +1,149 @@
+<app-navbar></app-navbar>
+<div class="background center">
+    <div class="record">
+        <div class="options-list">
+            <div class="paginacion">
+                <!-- Filtros de la tabla -->
+                <div class="paginator-container">
+                    <div class="filter">
+                            <h3>Registros por página</h3>
+                        <select [(ngModel)]="inputValue2" name="size" (ngModelChange)="onInputChange()">
+                            <option value="5" selected hidden>5</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                        </select>   
+                        <div class="page-info">
+                            <h3>{{ inicio }} - {{ fin }} de {{total}}</h3>
+                        </div>
+                        <button (click)="onPageChange(paginaActual - 1)" [disabled]="paginaActual === 1">
+                            <span>&lt;</span>
+                        </button>
+                        <button (click)="onPageChange(paginaActual + 1)" [disabled]="paginaActual * inputValue2 >= companys.length">
+                            <span>&gt;</span>
+                        </button>
+                    </div>
+                    <button class="button" (click)="newRecord()">Agregar compañia</button>
+                </div>
+            </div>
+            <!-- Cabezera de la tabla -->
+            <div class="info">
+                <h3>Nombre</h3>
+                <h3>Siglas</h3>
+            </div>
+            <!-- Lista de auditorias -->
+            <div *ngFor="let company of companysFilter">
+                <div class="audit-list">
+                    <div class="audit">
+                        <h4>{{company.name}}</h4>
+                    </div>
+                    <div class="audit">
+                        <h4>{{company.abrevation}}</h4>
+                    </div>
+                    <div class="icons">
+                        <i class="fa-solid fa-pen edit-button" style="color: #6988F5;" (click)="editcompany(company.companyId)"></i>
+                        <i class="fa-solid fa-trash delete-button" style="color: #F22D2D;" (click)="deleteCompany(company.companyId)"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <h3>{{total}} Empresas</h3> 
+        </div>
+    </div>
+    <!--Cargando-->
+    <div class="popup center" *ngIf="loadingPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content" style="margin-bottom: 20px;">
+                    <i class="fas fa-spinner fa-spin" style="color: #16428B;"></i>
+                </div>
+                <div class="confirmation-content"><p>Procesando datos, por favor espere</p></div>
+            </div>
+        </div>
+    </div>        
+    <!--Mensaje de que todo salio bien y la empresa fue registrada correctamente-->
+    <div class="popup center" *ngIf="confirmationPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content"><i class="fa-solid fa-circle-check" style="color: #30ff24;"></i></div>
+                <div class="confirmation-content"><p>La empresa fue registrada correctamente</p></div>
+                <div class="confirmation-content"><button (click)="confirmationPopup = false">Aceptar</button></div>
+            </div>
+        </div>
+    </div>
+    <!--Mensaje de que algo salio mal al momento de registrar la empresa-->
+    <div class="popup center" *ngIf="errorPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content"><i class="fa-solid fa-circle-xmark" style="color: #ff4d4d;"></i></div>
+                <div class="confirmation-content"><p>Ocurrió un error, la empresa no pudo<br>ser registrado</p></div>
+                <div class="confirmation-content"><button (click)="errorPopup = false">Aceptar</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Popup Agregar compañia-->
+<div class="overlay" *ngIf="isDialogVisible"></div> <!-- Fondo oscuro -->
+<div class="custom-confirm-dialog" *ngIf="isDialogVisible">
+    <div class="dialog-content">
+        <h5>Nueva compañia</h5>
+        <hr>
+        <h6>Información</h6>
+        <h6>Nombre</h6> 
+        <div class="input-container">
+            <input type="text" placeholder="Nombre de la compañia" id="name" [(ngModel)]="name">
+            <i class="fa-solid fa-building icon" id="icon"></i>
+        </div>  
+        <h6>Siglas</h6> 
+        <div class="input-container">
+            <input type="text" placeholder="Siglas de la compañia" id="abrevation" [(ngModel)]="abrevation">
+            <i class="fa-solid fa-font icon" id="icon"></i>
+        </div>             
+    </div>
+    <div #errorMessage class="error-message">Por favor llene todos los campos.</div>                    
+    <div class="dialog-actions">
+        <button (click)="confirm()" class="Aceptar">Crear</button>
+        <button (click)="cancel()" class="Cancelar">Cancelar</button>
+    </div>
+</div>
+<!-- Popup para editar compañia-->
+<div class="overlay" *ngIf="isEditDialogVisible"></div> <!-- Fondo oscuro -->
+<div class="custom-confirm-dialog" *ngIf="isEditDialogVisible">
+    <div class="dialog-content">
+        <h5>Editar compañia</h5>
+        <hr>
+        <h6>Información</h6>
+        <h6>Nombre</h6> 
+        <div class="input-container">
+            <input type="text" placeholder="Nombre de la compañia" id="name" [(ngModel)]="name">
+            <i class="fa-solid fa-building icon" id="icon"></i>
+        </div>  
+        <h6>Siglas</h6> 
+        <div class="input-container">
+            <input type="text" placeholder="Siglas de la compañia" id="abrevation" [(ngModel)]="abrevation">
+            <i class="fa-solid fa-font icon" id="icon"></i>
+        </div>             
+    </div>
+    <div #errorMessage class="error-message">Por favor llene todos los campos.</div>                    
+    <div class="dialog-actions">
+        <button (click)="confirmEdit()" class="Aceptar">Editar</button>
+        <button (click)="cancelEdit()" class="Cancelar">Cancelar</button>
+    </div>
+</div>
+<!-- Popup para eliminar compañia-->
+<div class="overlay" *ngIf="isDeleteDialogVisible"></div> <!-- Fondo oscuro -->
+<div class="custom-confirm-dialog-delete" *ngIf="isDeleteDialogVisible">
+    <div class="dialog-content">
+        <h5>Eliminar compañia</h5>
+        <hr>
+        <h6>¿Está seguro que desea eliminar la compañia?</h6>
+    </div>
+    <div class="dialog-actions">
+        <button (click)="confirmDelete()" class="Aceptar">Eliminar</button>
+        <button (click)="cancelDelete()" class="Cancelar">Cancelar</button>
+    </div>
+</div>
+

@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+<div class="background center">
+    <div class="hash">
+        <div class="dialog-content">
+            <h5>Cliente: {{name}}</h5>
+            <hr>
+            <h6>Hashes procesados:</h6>      
+                <div class="user">
+                    <h4>{{hashes}}</h4>
+                </div>
+            <h6>Hashes crackeados:</h6>
+                <div class="user">
+                    <h4>{{crackeds}}</h4>
+                </div>
+            <h6>Porcentaje de credenciales obtenidas:</h6>
+            <div class="user">
+                <h4>{{proportionHash}} %</h4>
+            </div>            
+        </div>
+        <div class="center"  >
+            <canvas id="doughnutChartCanvas" style="width: 500px; height: 500px; "></canvas>
+        </div>
+    </div>
+
+
+</div>

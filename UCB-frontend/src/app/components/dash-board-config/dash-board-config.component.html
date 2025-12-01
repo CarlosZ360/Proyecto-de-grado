@@ -1,0 +1,58 @@
+<app-navbar></app-navbar>
+<div class="background center">
+    <div class="hash">
+        <div class="dialog-content">
+            <h5>Configuración DashBoard</h5>
+            <hr>
+            <h6>Seleccione un tipo de guardado</h6>      
+
+              <label>
+                <input type="checkbox" [(ngModel)]="opcion1Checked"> Actualizar DashBoard cada día a las 5 AM
+              </label>
+              <label>
+                <input type="checkbox" [(ngModel)]="opcion2Checked"> Actualizar DashBoard cada día a la 1 PM
+              </label>
+              <label>
+                <input type="checkbox" [(ngModel)]="opcion3Checked"> Actualizar DashBoard cada día a las 8 PM
+              </label>
+              <label>
+                <input type="checkbox" [(ngModel)]="opcion4Checked"> Actualizar DashBoard por cada .potfile subido
+              </label>  
+
+        </div>
+        <div class="dialog-actions">
+            <button (click)="save()" class="Aceptar">Guardar</button>
+        </div>
+    </div>
+    <!--Cargando-->
+    <div class="popup center" *ngIf="loadingPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content" style="margin-bottom: 20px;">
+                    <i class="fas fa-spinner fa-spin" style="color: #16428B;"></i>
+                </div>
+                <div class="confirmation-content"><p>Procesando datos, por favor espere</p></div>
+            </div>
+        </div>
+    </div>        
+    <!--Mensaje de que todo salio bien y la configuración fue registrada correctamente-->
+    <div class="popup center" *ngIf="confirmationPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content"><i class="fa-solid fa-circle-check" style="color: #30ff24;"></i></div>
+                <div class="confirmation-content"><p>Proceso realizado exitosamente</p></div>
+                <div class="confirmation-content"><button (click)="confirmationPopup = false">Aceptar</button></div>
+            </div>
+        </div>
+    </div>
+    <!--Mensaje de que algo salio mal al momento de registrar la configuracion-->
+    <div class="popup center" *ngIf="errorPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content"><i class="fa-solid fa-circle-xmark" style="color: #ff4d4d;"></i></div>
+                <div class="confirmation-content"><p>Ocurrió un error</p></div>
+                <div class="confirmation-content"><button (click)="errorPopup = false">Aceptar</button></div>
+            </div>
+        </div>
+    </div>    
+</div>

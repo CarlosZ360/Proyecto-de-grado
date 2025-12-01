@@ -1,0 +1,175 @@
+<app-navbar></app-navbar>
+<div class="background">
+    <div id="contenidoPDF" class="report">
+        <img class="logo" src="../../../assets/icons/Logo-PwnCrack.jpg" width="180px" />
+        <div class="center">
+            <h2>REPORTE PARCIAL</h2>
+        </div>
+        <h2>Datos generales</h2>
+        <div class="datos">
+            <div class="info">
+                Total de hashes procesados
+            </div>
+            <div class="info">
+                Porcentaje de credenciales obtenidas
+            </div>
+            <div class="dato">
+                {{hashes}}
+            </div>
+            <div class="dato">
+                {{proportionHash}}%
+            </div>
+            <div class="info">
+                Hashes que fueron crackeados
+            </div>
+            <div class="info">
+                Hashes no crackeados
+            </div>
+            <div class="dato">
+                {{hashesCracked}}
+            </div>
+            <div class="dato">
+                {{hashesNoCracked}}
+            </div>
+        </div>
+
+        <div class="button-column">
+            <div>
+                <button *ngIf="admin" class="button" (click)="newReport()">Reporte final</button>
+            </div>
+            <div>
+                <button class="button" (click)="Download()">Descargar crackeados</button>
+            </div>
+            <div>
+                <button class="button" (click)="exportPDF()">Descargar reporte</button>
+            </div>
+        </div>
+
+        <h2>Gráfico estadístico</h2>
+        <div class="center">
+            <h2>Gráfico de torta</h2>
+        </div>
+        <div class="column">
+            <div>
+
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                
+            </div>
+            <div class="center"  >
+                <canvas id="doughnutChartCanvas" style="width: 500px; height: 500px; "></canvas>
+            </div>
+                
+            <div>
+                
+            </div>
+            <div>
+                
+            </div>       
+            <div class="center">
+                <h2>Gráfico de barras</h2>
+            </div>
+            <div>
+
+            </div>            
+            <div>
+                
+            </div>       
+            <div class="center">
+                <canvas id="barChartCanvas" style="width: 150px; height: 75px; "></canvas>
+            </div>
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+            
+            <div>
+                Observaciones:
+                <br><br>
+                <textarea class="chapterContent" style="resize: none;" rows="19" maxlength="5000"  [(ngModel)]="observations" placeholder="Escriba aquí sus observaciones"></textarea>
+            </div>
+
+            <div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!--Cargando-->
+    <div class="popup center" *ngIf="loadingPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content" style="margin-bottom: 20px;">
+                    <i class="fas fa-spinner fa-spin" style="color: #16428B;"></i>
+                </div>
+                <div class="confirmation-content"><p>Procesando datos, por favor espere</p></div>
+            </div>
+        </div>
+    </div>      
+    <!--Mensaje de que todo salio bien y fue registrada correctamente-->
+    <div class="popup center" *ngIf="confirmationPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content"><i class="fa-solid fa-circle-check" style="color: #30ff24;"></i></div>
+                <div class="confirmation-content"><p>El reporte final fue registrado correctamente</p></div>
+                <div class="confirmation-content"><button (click)="confirmationPopup = false">Aceptar</button></div>
+            </div>
+        </div>
+    </div>
+    <!--Mensaje de que algo salio mal al momento de registrar-->
+    <div class="popup center" *ngIf="errorPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content"><i class="fa-solid fa-circle-xmark" style="color: #ff4d4d;"></i></div>
+                <div class="confirmation-content"><p>Ocurrió un error, el reporte final no pudo<br>ser registrado</p></div>
+                <div class="confirmation-content"><button (click)="errorPopup = false">Aceptar</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Popup - nuevo reporte-->
+<div class="overlay" *ngIf="isDialogVisible"></div> <!-- Fondo oscuro -->
+<div class="custom-confirm-dialog" *ngIf="isDialogVisible">
+    <div class="dialog-content">
+        <h5>Nuevo reporte</h5>
+        <hr>
+        <h6>Información</h6>     
+        <h6>Fichero hashes.dump</h6> 
+        <div class="input-container">
+            <input type="text" placeholder="Suba archivo hashes" id="file" [(ngModel)]="file" (click)="importTxt.click()">
+            <i class="fa-light fa-file-lines icon" id="icon"></i>
+        </div> 
+        <!-- <button class="import" (click)="importTxt.click()">
+            <span>IMPORTAR DESDE TXT</span>
+        </button> -->
+        <!-- upload.component.html -->
+        <input #importTxt id="file-upload" type="file" accept=".txt, .potfile, .ntds, .lst, .dump" style="display: none;" (change)="onFileChange($event)"/>
+        <h6>Fichero potfile</h6>
+        <div class="input-container">
+            <input type="text" placeholder="Suba potfile" id="file2" [(ngModel)]="file2" (click)="importTxt2.click()">
+            <i class="fa-light fa-file-lines icon" id="icon"></i>
+        </div> 
+        <!-- <button class="import" (click)="importTxt.click()">
+            <span>IMPORTAR DESDE TXT</span>
+        </button> -->
+        <!-- upload.component.html -->
+        <input #importTxt2 id="file-upload" type="file" accept=".txt, .potfile, .ntds, .lst, .dump" style="display: none;" (change)="onFileChange2($event)"/>
+    </div>
+    <div #errorMessage class="error-message">Por favor debe subir un archivo.</div>                    
+    <div class="dialog-actions">
+        <button (click)="createReportFinal()" class="Aceptar">Crear</button>
+        <button (click)="cancel()" class="Cancelar">Cancelar</button>
+    </div>
+</div>

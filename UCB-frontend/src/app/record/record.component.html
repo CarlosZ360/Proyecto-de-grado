@@ -1,0 +1,191 @@
+<app-navbar></app-navbar>
+<div class="background center">
+    <div class="record">
+        <div class="options-list">
+            <div class="paginacion">
+                <!-- Filtros de la tabla -->
+                <div class="paginator-container">
+                    <div class="filter">
+                        <h3>Registros por página</h3>
+                        <select [(ngModel)]="inputValue2" name="size" (ngModelChange)="onInputChange()">
+                            <option value="5" selected hidden>5</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                        </select>   
+                        <div class="page-info">
+                            <h3>{{ inicio }} - {{ fin }} de {{total}}</h3>
+                        </div>
+                        <button (click)="onPageChange(paginaActual - 1)" [disabled]="paginaActual === 1">
+                            <span>&lt;</span>
+                        </button>
+                        <button (click)="onPageChange(paginaActual + 1)" [disabled]="paginaActual * inputValue2 >= audits.length">
+                            <span>&gt;</span>
+                        </button>
+                    </div>
+                    <button *ngIf="admin || consultor" class="button" (click)="newRecord()">Nueva auditoria</button>
+                </div>
+            </div>
+            <!-- Cabezera de la tabla -->
+            <div class="info">
+                <h3>Nombre</h3>
+                <h3>Colaboradores</h3>
+                <h3>Fecha de registro</h3>
+                <div></div>
+            </div>
+            <!-- Lista de auditorias -->
+            <div *ngFor="let audit of auditsFilter">
+                <div class="audit-list">
+                    <div class="audit">
+                        <h4>{{audit.name}}</h4>
+                    </div>
+                    <div class="audit">
+                        <ng-container *ngFor="let employee of audit.employee; let last = last">
+                            <h4>{{ employee.name }} {{employee.lastName}}</h4>
+                            <span *ngIf="!last">- </span>
+                        </ng-container>
+                    </div>
+                    <div class="audit">
+                        <h4>{{audit.date}}</h4>
+                    </div>
+                    <div class="icons">
+                        <i class="fa-regular fa-file-pdf pdf-button" style="color: #CBCBCB;" (click)="redirectReport(audit.auditId)"></i>
+                        <i *ngIf="admin" class="fa-solid fa-pen edit-button" style="color: #6988F5;" (click)="editAudit(audit)"></i>
+                        <i *ngIf="admin" class="fa-solid fa-trash delete-button" style="color: #F22D2D;" (click)="deleteAudit(audit.auditId)"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <h3>{{total}} Auditorias</h3> 
+        </div>
+    </div>
+    <!--Cargando-->
+    <div class="popup center" *ngIf="loadingPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content" style="margin-bottom: 20px;">
+                    <i class="fas fa-spinner fa-spin" style="color: #16428B;"></i>
+                </div>
+                <div class="confirmation-content"><p>Creando nueva auditoria, por favor espere</p></div>
+            </div>
+        </div>
+    </div>          
+    <!--Mensaje de que todo salio bien y la empresa fue registrada correctamente-->
+    <div class="popup center" *ngIf="confirmationPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content"><i class="fa-solid fa-circle-check" style="color: #30ff24;"></i></div>
+                <div class="confirmation-content"><p>La auditoria fue registrada correctamente</p></div>
+                <div class="confirmation-content"><button (click)="confirmationPopup = false">Aceptar</button></div>
+            </div>
+        </div>
+    </div>
+    <!--Mensaje de que algo salio mal al momento de registrar la empresa-->
+    <div class="popup center" *ngIf="errorPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content"><i class="fa-solid fa-circle-xmark" style="color: #ff4d4d;"></i></div>
+                <div class="confirmation-content"><p>Ocurrió un error, la auditoria no pudo<br>ser registrado</p></div>
+                <div class="confirmation-content"><button (click)="errorPopup = false">Aceptar</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Popup - nueva auditoria-->
+<div class="overlay" *ngIf="isDialogVisible"></div> <!-- Fondo oscuro -->
+<div class="custom-confirm-dialog" *ngIf="isDialogVisible">
+    <div class="dialog-content">
+        <h5>Nueva auditoria</h5>
+        <hr>
+        <h6>Información</h6>
+        <h6>Nombre</h6>
+        <div class="input-container">
+            <input type="text" placeholder="Ingresa nombre" id="name" [(ngModel)]="name">
+            <i class="fas fa-user icon" id="icon"></i>
+        </div>    
+        <h6>Consultores</h6>
+        <div class="column">
+            <div class="input-container">
+                <select class="select-company" #employeeSelect>
+                    <option *ngFor="let collaborator of collaborators" [value]="collaborator.employeeId + ',' + collaborator.name + ',' + collaborator.lastName">{{ collaborator.name }} {{collaborator.lastName}}</option>
+                </select>
+            </div>  
+            <button class="button-add" (click)="addEmployee(employeeSelect.value)" [disabled]="collaborators.length === 0">Agregar Empleado</button>
+        </div>
+        <h6>Empleados asignados:</h6>
+        <ul class="collaborator-list">
+            <li *ngFor="let collaborator of assignedEmployees" class="collaborator-item">
+                <span><h6>{{ collaborator.name }} {{collaborator.lastName}}</h6></span>
+                <button (click)="removeEmployee(collaborator.employeeId)" class="remove-button">x</button>
+            </li>
+        </ul>            
+        <h6>Fichero hashes.dump</h6> 
+        <div class="input-container">
+            <input type="text" placeholder="Suba archivo" id="file" [(ngModel)]="file" (click)="importTxt.click()">
+            <i class="fa-light fa-file-lines icon" id="icon"></i>
+        </div> 
+        <!-- <button class="import" (click)="importTxt.click()">
+            <span>IMPORTAR DESDE TXT</span>
+        </button> -->
+        <!-- upload.component.html -->
+        <input #importTxt id="file-upload" type="file" accept=".txt, .potfile, .ntds, .lst, .dump" style="display: none;" (change)="onFileChange($event)"/>
+    </div>
+    <div #errorMessage class="error-message">Por favor llene todos los campos.</div>                    
+    <div class="dialog-actions">
+        <button (click)="create()" class="Aceptar">Crear</button>
+        <button (click)="cancel()" class="Cancelar">Cancelar</button>
+    </div>
+</div>
+<!-- Popup - para eliminar una auditoria-->
+<div class="overlay" *ngIf="isDeleteDialogVisible"></div> <!-- Fondo oscuro -->
+<div class="custom-confirm-dialog" *ngIf="isDeleteDialogVisible">
+    <div class="dialog-content">
+        <h5>Eliminar auditoria</h5>
+        <hr>
+        <h6>¿Estás seguro de que deseas eliminar esta auditoria?</h6>
+    </div>
+    <div class="dialog-actions">
+        <button (click)="confirmDelete()" class="Aceptar">Eliminar</button>
+        <button (click)="cancelDelete()" class="Cancelar">Cancelar</button>
+    </div>
+</div>
+
+<!-- Popup - para editar una auditoria -->
+<div class="overlay" *ngIf="isEditDialogVisible"></div> <!-- Fondo oscuro -->
+<div class="custom-confirm-dialog" *ngIf="isEditDialogVisible">
+    <div class="dialog-content">
+        <h5>Editar auditoria</h5>
+        <hr>
+        <h6>Información</h6>
+        <h6>Nombre</h6>
+        <div class="input-container">
+            <input type="text" placeholder="Ingresa nombre" id="name" [(ngModel)]="name">
+            <i class="fas fa-user icon" id="icon"></i>
+        </div>    
+        <div class="column">
+            <div class="input-container">
+                <select class="select-company" #employeeSelect>
+                    <option *ngFor="let collaborator of collaborators" [value]="collaborator.employeeId + ',' + collaborator.name + ',' + collaborator.lastName">{{ collaborator.name }} {{collaborator.lastName}}</option>
+                </select>
+            </div>  
+            <button class="button-add" (click)="addEmployee(employeeSelect.value)" [disabled]="collaborators.length === 0">Agregar Empleado</button>
+        </div>
+        <h6>Empleados asignados:</h6>
+        <ul class="collaborator-list">
+            <li *ngFor="let collaborator of assignedEmployees" class="collaborator-item">
+                <span><h6>{{ collaborator.name }} {{collaborator.lastName}}</h6></span>
+                <button (click)="removeEmployee(collaborator.employeeId)" class="remove-button">x</button>
+            </li>
+        </ul>               
+    </div>
+    <div #errorMessage class="error-message">Por favor llene todos los campos.</div>                    
+    <div class="dialog-actions">
+        <button (click)="edit()" class="Aceptar">Editar</button>
+        <button (click)="cancelEdit()" class="Cancelar">Cancelar</button>
+    </div>
+</div>
+
+

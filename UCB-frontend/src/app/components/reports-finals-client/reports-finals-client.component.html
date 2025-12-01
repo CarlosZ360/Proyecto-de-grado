@@ -1,0 +1,46 @@
+<app-navbar></app-navbar>
+<div class="background center">
+    <div class="record">
+        <div class="options-list">
+            <div class="paginacion">
+                <!-- Filtros de la tabla -->
+                <div class="paginator-container">
+                    <div class="filter">
+                        <h3>Registros por página</h3>
+                        <select [(ngModel)]="inputValue2" name="size" (ngModelChange)="onInputChange()">
+                            <option value="5" selected hidden>5</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                        </select>   
+                        <div class="page-info">
+                            <h3>{{ inicio }} - {{ fin }} de {{total}}</h3>
+                        </div>
+                        <button (click)="onPageChange(paginaActual - 1)" [disabled]="paginaActual === 1">
+                            <span>&lt;</span>
+                        </button>
+                        <button (click)="onPageChange(paginaActual + 1)" [disabled]="paginaActual * inputValue2 >= reports.length">
+                            <span>&gt;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Cabezera de la tabla -->
+            <div class="info">
+                <h3>Reporte Final</h3>
+            </div>
+            <!-- Lista de auditorias -->
+            <div *ngFor="let report of reportsFilter">
+                <div class="audit-list">
+                    <div class="audit">
+                        <h4>Reporte #{{report.reportFinalId}}</h4>
+                    </div>
+                    <button class="button" (click)="redirectReport(report.reportFinalId)">Visualizar reporte final</button>
+                </div>
+            </div>
+        <hr>
+        <div>
+            <h3>{{total}} Reportes finales</h3> 
+        </div>
+    </div>
+</div>

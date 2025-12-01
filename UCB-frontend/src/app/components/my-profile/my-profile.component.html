@@ -1,0 +1,113 @@
+<app-navbar></app-navbar>
+<div class="background center">
+    <div class="customers">    
+        <div class="dialog-content">
+            <h5>Mi perfil</h5>
+            <hr>
+            <h6>Información</h6>
+            <div class="column">
+                <div>
+                    <h6>Nombre</h6>
+                    <div class="input-container">
+                        <input type="text" placeholder="Ingresa nombre" id="nombre" [(ngModel)]="name" disabled>
+                        <i class="fas fa-user icon" id="icon"></i>
+                    </div> 
+                </div>
+                <div>
+                    <h6>Apellido</h6> 
+                    <div class="input-container">
+                        <input type="text" placeholder="Ingrese apellido" id="file" [(ngModel)]="lastName" disabled>
+                        <i class="fas fa-user icon" id="icon"></i>
+                    </div>
+                </div>
+                <div>
+                    <h6>Número de contacto</h6>
+                    <div class="input-container">
+                        <input type="text" placeholder="Ingresa telefono" id="nombre" [(ngModel)]="phone">
+                        <i class="fa-solid fa-phone icon" id="icon"></i>
+                    </div> 
+                </div>
+                <div>
+                    <h6>Email</h6> 
+                    <div class="input-container">
+                        <input type="text" placeholder="Ingresa correo electronico" id="file" [(ngModel)]="email" disabled>
+                        <i class="fa-solid fa-envelope icon" id="icon"></i>
+                    </div>
+                </div>            
+            </div>
+            <hr>
+            <h6>Seguridad</h6> 
+            <button (click)="popup()" class="Password">Cambiar contraseña</button>
+        </div>
+        <div #errorMessage class="error-message">Por favor llene todos los campos.</div>                    
+        <div class="dialog-actions">
+            <button (click)="confirm()" class="Aceptar">Editar</button>
+        </div>
+    </div>
+    <!--Cargando-->
+    <div class="popup center" *ngIf="loadingPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content" style="margin-bottom: 20px;">
+                    <i class="fas fa-spinner fa-spin" style="color: #16428B;"></i>
+                </div>
+                <div class="confirmation-content"><p>Procesando datos, por favor espere</p></div>
+            </div>
+        </div>
+    </div>        
+    <!--Mensaje de que todo salio bien y la empresa fue registrada correctamente-->
+    <div class="popup center" *ngIf="confirmationPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content"><i class="fa-solid fa-circle-check" style="color: #30ff24;"></i></div>
+                <div class="confirmation-content"><p>Su perfil fue actualizado correctamente</p></div>
+                <div class="confirmation-content"><button (click)="confirmationPopup = false">Aceptar</button></div>
+            </div>
+        </div>
+    </div>
+    <!--Mensaje de que algo salio mal al momento de registrar la empresa-->
+    <div class="popup center" *ngIf="errorPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content"><i class="fa-solid fa-circle-xmark" style="color: #ff4d4d;"></i></div>
+                <div class="confirmation-content"><p>Ocurrió un error, los datos no pudieron<br>ser registrados</p></div>
+                <div class="confirmation-content"><button (click)="errorPopup = false">Aceptar</button></div>
+            </div>
+        </div>
+    </div>
+</div>   
+
+<!-- Popup -->
+<div class="overlay" *ngIf="isDialogVisible"></div> <!-- Fondo oscuro -->
+<div class="custom-confirm-dialog" *ngIf="isDialogVisible">
+    <div class="dialog-content">
+        <h5>Cambiar contraseña</h5>
+        <hr>
+            <!-- <div>
+                <h6>Contraseña actual</h6>
+                <div class="input-container">
+                    <input type="text" placeholder="Ingresa tu contraseña actual" id="nombre">
+                    <i class="fa-solid fa-lock icon" id="icon"></i>
+                </div> 
+            </div> -->
+            <div>
+                <h6>Nueva contraseña</h6> 
+                <div class="input-container">
+                    <input type="text" placeholder="Ingresa tu nueva contraseña" id="nuevaContraseña" [(ngModel)]="newPassword">
+                    <i class="fa-solid fa-lock icon" id="icon"></i>
+                </div>
+            </div>
+            <div>
+                <h6>Confirma contraseña</h6>
+                <div class="input-container">
+                    <input type="text" placeholder="Confirma tu contraseña" id="confirmaContraseña" [(ngModel)]="confirmPassword">
+                    <i class="fa-solid fa-lock icon" id="icon"></i>
+                </div> 
+            </div>           
+    </div>
+    <div #errorMessage class="error-message">Por favor llene todos los campos.</div>                    
+    <div class="dialog-actions">
+        <button (click)="editPassword()" class="Aceptar">Aceptar</button>
+        <button (click)="cancel()" class="Cancelar">Cancelar</button>
+    </div>
+</div>

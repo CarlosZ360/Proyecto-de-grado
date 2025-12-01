@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css" integrity="tu-clave-de-api" crossorigin="anonymous">
+<div class="background center">
+    <div class="login">
+        <img src="../../../assets/icons/Logo-PwnCrack.jpg" alt="Logo de la empresa">
+        <div> 
+            <h1>Iniciar sesión</h1>
+        </div>
+        <div>
+            <div class="input-container">
+                <input type="text" placeholder="Ingresa tu email" id="email" [(ngModel)]="email">
+                <i class="fas fa-user icon" id="icon"></i>
+                <div class="barra" id="barra"></div>
+            </div>    
+            <div class="input-container">
+                <input type="password" placeholder="Ingresa tu contraseña" id="password" [(ngModel)]="password">
+                <i class="fa-solid fa-lock icon" id="icon"></i>
+                <div class="barra" id="barra"></div>
+            </div>   
+        </div>
+        <div #errorMessage class="error-message">Por favor llene todos los campos.</div>                    
+        <div #errorMessageLogin class="error-message-login">El email o contraseña son incorrectos.</div>                    
+        <button class="button" (click)="login()">Ingresar</button>
+    </div>
+</div>

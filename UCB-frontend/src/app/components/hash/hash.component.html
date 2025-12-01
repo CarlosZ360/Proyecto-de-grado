@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+<div class="background center">
+    <div class="hash">
+        <div class="dialog-content">
+            <h5>Hashes</h5>
+            <hr>
+            <h6>Data</h6>           
+            <h6>Fichero .potfile</h6> 
+            <div class="input-container">
+                <input type="text" placeholder="Suba archivo" id="file" [(ngModel)]="file" (click)="importTxt.click()">
+                <i class="fa-light fa-file-lines icon" id="icon"></i>
+            </div> 
+            <input #importTxt id="file-upload" type="file" accept=".txt, .potfile, .ntds, .lst, .dump" style="display: none;" (change)="onFileChange($event)"/>
+            <div #errorMessage class="error-message">Por favor seleccione un archivo.</div>                    
+            <div class="dialog-actions">
+                <button (click)="uploadFile()" class="Aceptar">Subir</button>
+                <button (click)="dowloadFile()" class="Cancelar">Backup</button>
+            </div>
+        </div>
+    </div>
+    <!--Cargando-->
+    <div class="popup center" *ngIf="loadingPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content" style="margin-bottom: 20px;">
+                    <i class="fas fa-spinner fa-spin" style="color: #16428B;"></i>
+                </div>
+                <div class="confirmation-content"><p>Procesando datos, por favor espere</p></div>
+            </div>
+        </div>
+    </div>        
+    <!--Mensaje de que todo salio bien y el archivo fue registrado correctamente-->
+    <div class="popup center" *ngIf="confirmationPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content"><i class="fa-solid fa-circle-check" style="color: #30ff24;"></i></div>
+                <div class="confirmation-content"><p>Proceso realizado exitosamente</p></div>
+                <div class="confirmation-content"><button (click)="confirmationPopup = false">Aceptar</button></div>
+            </div>
+        </div>
+    </div>
+    <!--Mensaje de que algo salio mal al momento de registrar el archivo-->
+    <div class="popup center" *ngIf="errorPopup">
+        <div class="success center">
+            <div>
+                <div class="confirmation-content"><i class="fa-solid fa-circle-xmark" style="color: #ff4d4d;"></i></div>
+                <div class="confirmation-content"><p>Ocurrió un error</p></div>
+                <div class="confirmation-content"><button (click)="errorPopup = false">Aceptar</button></div>
+            </div>
+        </div>
+    </div>    
+</div>

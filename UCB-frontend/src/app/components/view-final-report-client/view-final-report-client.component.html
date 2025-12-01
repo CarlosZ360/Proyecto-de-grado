@@ -1,0 +1,447 @@
+<app-navbar></app-navbar>
+<div class="background">
+    <div id="contenidoPDF" class="report">
+        <img class="logo" src="../../../assets/icons/Logo-PwnCrack.jpg" width="180px" />
+        <div class="center">
+            <h2>REPORTE DE PASSWORD CRACKING</h2>
+        </div>
+        <H3>Cliente: {{cliente.name}} {{cliente.lastName}}</H3>
+        <H3>Fecha: {{date}}</H3>
+
+        <h2>Datos generales</h2>
+        <div class="datos">
+            <div class="info">
+                Hashes procesados
+            </div>
+            <div class="info">
+                Hashes procesados potfile
+            </div>
+            <div class="dato">
+                {{hashesDump}}
+            </div>
+            <div class="dato">
+                {{hashesPotfile}}
+            </div>
+            <div class="info">
+                Total de hashes procesados
+            </div>
+            <div class="info">
+                Porcentaje de credenciales obtenidas
+            </div>
+            <div class="dato">
+                {{hashes}}
+            </div>
+            <div class="dato">
+                {{proportionHash}}%
+            </div>
+            <div class="info">
+                Hashes que fueron crackeados
+            </div>
+            <div class="info">
+                Hashes no crackeados
+            </div>
+            <div class="dato">
+                {{hashesCracked}}
+            </div>
+            <div class="dato">
+                {{hashesNoCracked}}
+            </div>
+        </div>
+
+        <div class="button-column">
+            <div>
+                <button class="button" (click)="DownloadHashes()">Descargar crackeados</button>
+            </div>
+            <div>
+                <button class="button" (click)="DownloadDump()">Descargar dump hashes</button>
+            </div>
+            <div>
+                <button class="button" (click)="exportPDF()">Descargar reporte</button>
+            </div>
+        </div>
+        
+        <br>
+
+        <div>
+            Observaciones:
+            <br><br>
+            <textarea class="chapterContent" style="resize: none;" rows="19" maxlength="5000"  [(ngModel)]="observation" placeholder="Escriba aquí sus observaciones" disabled="true"></textarea>
+        </div>
+
+        <h2>Grafico estadistico</h2>
+
+        <div class="column">
+            <div>
+
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                
+            </div>
+            <div class="center"  >
+                <canvas id="doughnutChartCanvas" style="width: 500px; height: 500px; "></canvas>
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                
+            </div>
+            <div class="center">
+                <canvas id="barChartCanvas" style="width: 150px; height: 75px; "></canvas>
+            </div>
+            <div>
+
+            </div>
+        </div>
+        <h2></h2>
+        <div class="table">
+            <div></div>
+            <div class="info">
+                Formato de contraseñas
+            </div>
+            <div class="info">
+                Cantidad
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                Vacio
+            </div>
+            <div class="dato">
+                {{empty}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                Números
+            </div>
+            <div class="dato">
+                {{numeric}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                Alfabéticos
+            </div>
+            <div class="dato">
+                {{alpha}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                Alfa numéricos
+            </div>
+            <div class="dato">
+                {{alphaNumeric}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                Alfabéticos con caracteres especiales
+            </div>
+            <div class="dato">
+                {{alphaSpecial}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                Numéricos con caracteres especiales
+            </div>
+            <div class="dato">
+                {{numericSpecial}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                Alfa numéricos con caracteres especiales
+            </div>
+            <div class="dato">
+                {{alphaNumericSpecial}}
+            </div>
+            <div></div>
+
+        </div>
+        <!-- Tabla numero 2 -->
+        <h2></h2>
+        <div class="table">
+            <div></div>
+            <div class="info">
+                Top 10 de contraseñas repetidas
+            </div>
+            <div class="info">
+                Cantidad
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{wordTop1}}
+            </div>
+            <div class="dato">
+                {{wordTop1Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{wordTop2}}
+            </div>
+            <div class="dato">
+                {{wordTop2Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{wordTop3}}
+            </div>
+            <div class="dato">
+                {{wordTop3Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{wordTop4}}
+            </div>
+            <div class="dato">
+                {{wordTop4Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{wordTop5}}
+            </div>
+            <div class="dato">
+                {{wordTop5Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{wordTop6}}
+            </div>
+            <div class="dato">
+                {{wordTop6Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{wordTop7}}
+            </div>
+            <div class="dato">
+                {{wordTop7Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{wordTop8}}
+            </div>
+            <div class="dato">
+                {{wordTop8Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{wordTop9}}
+            </div>
+            <div class="dato">
+                {{wordTop9Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{wordTop10}}
+            </div>
+            <div class="dato">
+                {{wordTop10Count}}
+            </div>
+            <div></div>
+        </div>
+        <!-- Tabla numero 3 -->
+        <h2></h2>
+        <div class="table">
+            <div></div>
+            <div class="info">
+                Top 10 de palabras base
+            </div>
+            <div class="info">
+                Cantidad
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{baseWordTop1}}
+            </div>
+            <div class="dato">
+                {{baseWordTop1Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{baseWordTop2}}
+            </div>
+            <div class="dato">
+                {{baseWordTop2Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{baseWordTop3}}
+            </div>
+            <div class="dato">
+                {{baseWordTop3Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{baseWordTop4}}
+            </div>
+            <div class="dato">
+                {{baseWordTop4Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{baseWordTop5}}
+            </div>
+            <div class="dato">
+                {{baseWordTop5Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{baseWordTop6}}
+            </div>
+            <div class="dato">
+                {{baseWordTop6Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{baseWordTop7}}
+            </div>
+            <div class="dato">
+                {{baseWordTop7Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{baseWordTop8}}
+            </div>
+            <div class="dato">
+                {{baseWordTop8Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{baseWordTop9}}
+            </div>
+            <div class="dato">
+                {{baseWordTop9Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{baseWordTop10}}
+            </div>
+            <div class="dato">
+                {{baseWordTop10Count}}
+            </div>
+            <div></div>
+        </div>
+        <!-- Tabla numero 4 -->
+        <h2></h2>
+        <div class="table">
+            <div></div>
+            <div class="info">
+                Top 10 de mascaras mas usadas
+            </div>
+            <div class="info">
+                Cantidad
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{maskTop1}}
+            </div>
+            <div class="dato">
+                {{maskTop1Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{maskTop2}}
+            </div>
+            <div class="dato">
+                {{maskTop2Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{maskTop3}}
+            </div>
+            <div class="dato">
+                {{maskTop3Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{maskTop4}}
+            </div>
+            <div class="dato">
+                {{maskTop4Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{maskTop5}}
+            </div>
+            <div class="dato">
+                {{maskTop5Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{maskTop6}}
+            </div>
+            <div class="dato">
+                {{maskTop6Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{maskTop7}}
+            </div>
+            <div class="dato">
+                {{maskTop7Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{maskTop8}}
+            </div>
+            <div class="dato">
+                {{maskTop8Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{maskTop9}}
+            </div>
+            <div class="dato">
+                {{maskTop9Count}}
+            </div>
+            <div></div>
+            <div></div>
+            <div class="dato">
+                {{maskTop10}}
+            </div>
+            <div class="dato">
+                {{maskTop10Count}}
+            </div>
+            <div></div>
+        </div>        
+    </div>
+</div>

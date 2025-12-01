@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+<div class="background center">
+    <div class="record">
+        <div class="options-list">
+            <div class="paginacion">
+                <!-- Filtros de la tabla -->
+                <div class="paginator-container">
+                    <div class="filter">
+                        <h3>Registros por página</h3>
+                        <select [(ngModel)]="inputValue2" name="size" (ngModelChange)="onInputChange()">
+                            <option value="5" selected hidden>5</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                        </select>   
+                        <div class="page-info">
+                            <h3>{{ inicio }} - {{ fin }} de {{total}}</h3>
+                        </div>
+                        <button (click)="onPageChange(paginaActual - 1)" [disabled]="paginaActual === 1">
+                            <span>&lt;</span>
+                        </button>
+                        <button (click)="onPageChange(paginaActual + 1)" [disabled]="paginaActual * inputValue2 >= audits.length">
+                            <span>&gt;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Cabezera de la tabla -->
+            <div class="info">
+                <h3>Nombre</h3>
+                <h3>Colaboradores</h3>
+                <h3>Fecha de registro</h3>
+                <div></div>
+            </div>
+            <!-- Lista de auditorias -->
+            <div *ngFor="let audit of auditsFilter">
+                <div class="audit-list">
+                    <div class="audit">
+                        <h4>{{audit.name}}</h4>
+                    </div>
+                    <div class="audit">
+                        <ng-container *ngFor="let employee of audit.employee; let last = last">
+                            <h4>{{ employee.name }} {{employee.lastName}}</h4>
+                            <span *ngIf="!last">- </span>
+                        </ng-container>
+                    </div>
+                    <div class="audit">
+                        <h4>{{audit.date}}</h4>
+                    </div>
+                    <div class="icons">
+                        <i class="fa-regular fa-file-pdf pdf-button" style="color: #CBCBCB;" (click)="redirectReport(audit.auditId)"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <h3>{{total}} Auditorias</h3> 
+        </div>
+    </div>
+</div>

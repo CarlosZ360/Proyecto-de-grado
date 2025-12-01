@@ -1,0 +1,119 @@
+body {
+    margin: 0; /* Establece el margen del cuerpo a 0 */
+  }
+  html {
+    padding: 0;
+  }
+/*Background*/
+.background {
+    background: url('../../../assets/icons/Fondo-PwnCrack.png');
+    font-family: 'Montserrat', sans-serif;
+    background-size: cover; 
+    height: 98vh;
+
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.login{
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 10px 0px #000000;
+    height: 50%;
+    width: 28%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+img {
+    width: 300px;
+    height: 130px;
+}
+/*Inputs-transiciones*/
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+    
+  }
+  
+  .input-container input {
+    padding-left: 40px;
+    border: none;
+    outline: none;
+    width: 300px;
+    font-size: 18px; 
+    color:#000000
+  }
+  
+  .input-container .icon {
+    position: absolute;
+    left: 10px;
+    top: 40%;
+    transform: translateY(-50%);
+    color: #ccc;
+    font-size: 18px; 
+    transition: background-color 0.3s ease;
+  }
+  
+  .input-container .barra {
+    position: absolute;
+    top: 24px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    transition: background-color 0.3s ease;
+  }
+  
+  .input-container input:focus + .icon {
+    color: #16428B;
+  }
+  
+  .input-container input:focus ~ .barra {
+    background-color: #16428B;
+}
+/*Boton*/
+.button {
+    background-color: #489CE9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 7px 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 18px;
+    margin-top: 20px;
+    width: 50%;
+  }
+  
+  .button:hover {
+    background-color: #56adff;
+  }
+
+/*Mensaje de error*/
+.error-message {
+    color: #ff0000;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 6px 0 0 0;
+    display: none;
+}
+.error-message-login {
+    color: #ff0000;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 6px 0 0 0;
+    display: none;
+}
+.error-message.show {
+    display: block;
+}
+.error-message-login.show {
+    display: block;
+}
